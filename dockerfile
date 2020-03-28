@@ -6,5 +6,5 @@ WORKDIR /code
 
 RUN pip install -r dependencies.txt
 
-CMD ["",""]
+CMD ["python","WebService.py"]
 
