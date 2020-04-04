@@ -11,7 +11,9 @@ pipeline {
 
     stage('Build') {
       steps {
-        sh 'echo \'docker build -t davidordonez:1.0\''
+        sh '''echo \'docker build -t davidordonez:1.0 \'
+docker build -t davidordonez/proycdk:1.0
+docker images'''
       }
     }
 
