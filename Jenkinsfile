@@ -11,7 +11,7 @@ pipeline {
 
     stage('Build Dkr') {
       steps {
-        sh '''docker build -t rogermz/proy-cdk:1.0 .
+        sh '''docker build -t davidordonez/proycdk:1.0 .
 '''
         sh 'docker images'
       }
@@ -19,7 +19,7 @@ pipeline {
 
     stage('Deploy Image') {
       steps {
-        sh 'docker push rogermz/proy-cdk:1.0'
+        sh 'docker push davidordonez/proycdk:1.0'
       }
     }
 
