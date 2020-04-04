@@ -1,4 +1,0 @@
-flask
-pyodbc
-json
-cryptography
