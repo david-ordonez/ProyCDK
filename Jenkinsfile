@@ -19,7 +19,7 @@ pipeline {
 
     stage('Deploy Image') {
       steps {
-        sh 'docker login -u davidordonez --password-stdin 00Gd801011_'
+        sh 'cat \'00Gd801011_\' | docker login -u davidordonez --password-stdin'
         sh 'docker push davidordonez/proycdk:1.0'
       }
     }
