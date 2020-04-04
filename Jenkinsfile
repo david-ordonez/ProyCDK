@@ -1,21 +1,25 @@
 pipeline {
-  agent any
-  stages {
-    stage('Env & Tools') {
-      steps {
-        sh 'env'
-        sh 'docker --version'
-        sh 'ls -ltr'
-      }
-    }
+   agent any
 
-    stage('Build') {
-      steps {
-        sh '''docker build -t davidordonez/proycdk:1.0 .
-'''
-        sh 'docker images'
+   stages {
+      stage('Init') {
+         steps {
+            sh 'rm -rf ProjectC'
+            sh 'git clone https://github.com/RogerMZ/ProjectC.git'
+            //git 'https://github.com/RogerMZ/ProjectC.git'
+         }
       }
-    }
-
-  }
+      stage('Compiler') {
+         steps {
+            sh 'mkdir -p build'
+            sh 'ls -ltr'
+            sh 'gcc ProjectC/hello.c -o build/hello'
+         }
+      }
+      stage('Test') {
+         steps {
+            sh './build/hello'
+         }
+      }
+   }
 }
