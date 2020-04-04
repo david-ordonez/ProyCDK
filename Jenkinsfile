@@ -1,25 +1,31 @@
 pipeline {
-   agent any
+  agent any
+  stages {
+    stage('Env&Tools') {
+      steps {
+        sh 'env'
+        sh 'docker --version'
+        sh 'ls -ltr'
+      }
+    }
 
-   stages {
-      stage('Init') {
-         steps {
-            sh 'rm -rf ProjectC'
-            sh 'git clone https://github.com/RogerMZ/ProjectC.git'
-            //git 'https://github.com/RogerMZ/ProjectC.git'
-         }
+    stage('Build Dkr') {
+      steps {
+        sh '''docker build -t rogermz/proy-cdk:1.0 .
+'''
+        sh 'docker images'
       }
-      stage('Compiler') {
-         steps {
-            sh 'mkdir -p build'
-            sh 'ls -ltr'
-            sh 'gcc ProjectC/hello.c -o build/hello'
-         }
+    }
+
+    stage('Deploy Image') {
+      steps {
+        sh 'docker push rogermz/proy-cdk:1.0'
       }
-      stage('Test') {
-         steps {
-            sh './build/hello'
-         }
-      }
-   }
+    }
+
+  }
+  environment {
+    registryCredential = 'dockerhub_id'
+    dockerImage = ''
+  }
 }
